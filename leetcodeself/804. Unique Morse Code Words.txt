@@ -1,0 +1,26 @@
+Runtime: 12 ms, faster than 24.86% of C++ online submissions for Unique Morse Code Words.
+Memory Usage: 9.2 MB, less than 5.01% of C++ online submissions for Unique Morse Code Words.
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        map<char,string> m;int c=0;map<string,int> set;
+        vector<string> v={".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        for(int i=0;i<26;i++)
+        {
+            m[char((int)'a'+i)]=v[i];
+        }
+        for(int i=0;i<words.size();i++)
+        {
+            string s=words[i],s1;
+            for(int j=0;j<s.length();j++)
+                s1=s1+m[s[j]];
+            //cout<<s1<<" ";
+            if(set.find(s1)==set.end())
+            {
+                set[s1]=1;
+                c++;
+            }
+        }
+            return c;
+    }
+};

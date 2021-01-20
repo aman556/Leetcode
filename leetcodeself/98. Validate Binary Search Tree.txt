@@ -1,0 +1,112 @@
+Runtime: 8 ms, faster than 98.87% of C++ online submissions for Validate Binary Search Tree.
+Memory Usage: 22 MB, less than 66.78% of C++ online submissions for Validate Binary Search Tree.
+class Solution {
+    int a=-1;
+         int *p;
+public:
+    bool traverse(TreeNode* root)
+    {
+        if(!root)
+            return 1;
+        
+        if(!traverse(root->left)){
+            return 0;
+        }
+        
+       
+        if((*p)!=-1&&root->val<=(*p)){
+            return 0;
+        }
+            (*p)=root->val;
+        
+        if(!traverse(root->right)){
+            return 0;
+        }
+       
+        return 1;
+    }
+     bool isValidBST(TreeNode* root) {
+         
+         
+         (p)=&a;
+         
+         return traverse(root);
+    }
+};
+
+
+Runtime: 16 ms, faster than 64.18% of C++ online submissions for Validate Binary Search Tree.
+Memory Usage: 22.1 MB, less than 28.70% of C++ online submissions for Validate Binary Search Tree.
+class Solution {
+public:
+    void traverse(TreeNode* root,vector<int> &v)
+    {
+        if(!root)
+            return;
+        traverse(root->left,v);
+        v.push_back(root->val);
+        traverse(root->right,v);
+    }
+     bool isValidBST(TreeNode* root) {
+        vector<int> v;
+         traverse(root,v);
+         for(int i=1;i<v.size();i++){
+            //cout<<v[i]<<" ";
+             if(v[i]<=v[i-1])
+                 return 0;
+         }
+         return 1;
+    }
+};
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    bool valid(TreeNode* root,int p){
+        if(!root||(!root->left&&!root->right))
+            return 1;
+        
+        if(!valid(root->left,p)|| !valid(root->right,p))
+            return 0;
+        //cout<<"1";
+        if((root->left && (root->left->val >= root->val || root->left->val >=p)) || (root->right && (root->right->val <= root->val|| root->right->val >= p)))
+           return 0;
+           
+           return 1;
+        
+    }
+   
+    bool valid1(TreeNode* root,int p){
+        if(!root||(!root->left&&!root->right))
+            return 1;
+        
+        if(!valid1(root->left,p)|| !valid1(root->right,p))
+            return 0;
+        //cout<<"2";
+        if((root->left && (root->left->val >= root->val || root->left->val <=p)) || (root->right && (root->right->val <= root->val|| root->right->val <= p)))
+           return 0;
+           
+           return 1;
+        
+    }
+    
+    bool isValidBST(TreeNode* root) {
+        if(!root||(!root->left&&!root->right))
+            return 1;
+        
+        if(!valid(root->left,root->val)|| !valid1(root->right,root->val) || !isValidBST(root->left) || !isValidBST(root->right))
+            return 0;
+        
+        if((root->left && root->left->val >= root->val) || (root->right && root->right->val <= root->val))
+            return 0;
+        
+        return 1;
+    }
+};

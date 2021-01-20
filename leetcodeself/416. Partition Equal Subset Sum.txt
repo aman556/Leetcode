@@ -1,0 +1,35 @@
+Runtime: 68 ms, faster than 75.68% of C++ online submissions for Partition Equal Subset Sum.
+Memory Usage: 9.1 MB, less than 78.55% of C++ online submissions for Partition Equal Subset Sum.
+class Solution {
+public:
+    bool canPartition(vector<int>& a) {
+        int n=a.size(),s=0;
+        	    for(int i=0;i<n;i++)
+	    {
+	        s=s+a[i];
+	    }
+	    if(s%2!=0)
+	    return 0;
+	    else{
+	    int h[20001]={0};
+	    h[0]=1;
+	    for(int i=0;i<n;i++)
+	    {
+	        for(int j=s-a[i];j>=0;j--)
+	        {
+	            if(h[j]>0)
+	            {
+	                h[j+a[i]]++;
+	            }
+	        }
+	    }
+	    
+	    if(h[s/2]>=2)
+	    return 1;
+	    else
+	    return 0;
+	    }
+	
+
+    }
+};

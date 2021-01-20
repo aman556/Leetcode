@@ -1,0 +1,33 @@
+Runtime: 24 ms, faster than 32.94% of C++ online submissions for Matrix Block Sum.
+Memory Usage: 9.5 MB, less than 99.58% of C++ online submissions for Matrix Block Sum.
+class Solution {
+    int dp[101][101];
+public:
+    vector<vector<int>> matrixBlockSum(vector<vector<int>>& mat, int k) {
+        memset(dp,0,sizeof(dp));
+        int n=mat.size(),m=mat[0].size();
+        
+        vector<vector<int>> v(n);
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(j>0)
+                dp[i][j]=dp[i][j-1]+mat[i][j];
+                else
+                    dp[i][j]=mat[i][j];
+            }
+        }
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                int i1=max(0,i-k),j1=max(0,j-k),i2=min(i+k,n-1),j2=min(j+k,m-1),s=0;
+                while(i1<=i2){
+                    s=s-dp[i1][j1]+dp[i1][j2]+mat[i1][j1];
+                    i1++;
+                }
+                v[i].push_back(s);
+            }
+        }
+        return v;
+    }
+};

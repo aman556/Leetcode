@@ -1,0 +1,22 @@
+Runtime: 16 ms, faster than 88.79% of C++ online submissions for Queries on a Permutation With Key.
+Memory Usage: 8.3 MB, less than 94.16% of C++ online submissions for Queries on a Permutation With Key.
+class Solution {
+public:
+    vector<int> processQueries(vector<int>& q, int m) {
+        vector<int> v(m),v1(q.size());
+        for(int i=0;i<m;i++){
+            v[i]=i+1;
+        }
+        for(int i=0;i<q.size();i++)
+        {
+            int j=0;
+            while(v[j]!=q[i])
+                j++;
+            v1[i]=j;
+            v.erase(v.begin()+j);
+            v.insert(v.begin(),q[i]);
+            
+        }
+        return v1;
+    }
+};

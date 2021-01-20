@@ -1,0 +1,60 @@
+
+Runtime: 1740 ms, faster than 5.77% of C++ online submissions for Palindrome Partitioning II.
+Memory Usage: 591.1 MB, less than 5.00% of C++ online submissions for Palindrome Partitioning II.
+
+class Solution {
+    int t1[2001][2001];
+int p[2001][2001];
+public:
+    int ispal(string s,int i,int j)
+    {
+        int a=i,b=j;
+    if(p[i][j]!=-1)
+        return p[i][j];
+    while(i<=j)
+    {
+        if(s[i]!=s[j]){p[i][j]=0;
+            return 0;}
+            i++;j--;
+    }
+    return p[a][b]=1;
+}
+int dp(string s,int i,int j)
+{
+    if(i>=j)
+        return 0;
+   
+    if(ispal(s,i,j)){t1[i][j]=0;
+        return 0;}
+         if(t1[i][j]!=-1)
+        return t1[i][j];
+    int res=INT_MAX;
+    for(int k=i;k<=j-1;k++){
+       /* if(ispal(s,i,k))
+        res=min(res,dp(s,i,k)+dp(s,k+1,j)+1);*/
+        if(ispal(s,i,k)){
+        int left,right;
+       if(t1[i][k]==-1)
+           left=dp(s,i,k);
+             else
+             left=t1[i][k];
+       
+             if(t1[k+1][j]==-1)
+              right=dp(s,k+1,j);
+             else
+               right=t1[k+1][j];
+       
+       res=min(res,left+right+1);
+        }
+       
+    }
+    t1[i][j]=res;
+    return res;
+}
+    int minCut(string s) {
+        memset(t1,-1,sizeof(t1));
+	    memset(p,-1,sizeof(p));
+	    int n=s.length();
+	    return dp(s,0,n-1);
+    }
+};

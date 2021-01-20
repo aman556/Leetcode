@@ -1,0 +1,41 @@
+Runtime: 24 ms, faster than 63.62% of C++ online submissions for Sort the Matrix Diagonally.
+Memory Usage: 8.9 MB, less than 83.85% of C++ online submissions for Sort the Matrix Diagonally
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        priority_queue<int,vector<int>,greater<int>> p;
+        for(int i=0;i<mat[0].size();i++)
+        {
+            int j=i,k=0;
+            while(k<mat.size()&&j<mat[0].size())
+            {
+                p.push(mat[k][j]);
+                k++;j++;
+            }
+            j=i;k=0;
+            while(k<mat.size()&&j<mat[0].size())
+            {
+                mat[k][j]=p.top();
+                p.pop();
+                k++;j++;
+            }
+        }
+       for(int i=1;i<mat.size();i++)
+        {
+            int j=0,k=i;
+            while(k<mat.size()&&j<mat[0].size())
+            {
+                p.push(mat[k][j]);
+                k++;j++;
+            }
+            j=0;k=i;
+            while(k<mat.size()&&j<mat[0].size())
+            {
+                mat[k][j]=p.top();
+                p.pop();
+                k++;j++;
+            }
+        }
+        return mat;
+    }
+};

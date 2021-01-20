@@ -1,0 +1,25 @@
+struct compare{
+    bool operator()(pair<int,string> p1,pair<int,string> p2)
+    {
+        if(p1.first==p2.first)
+            return p1.second>p2.second?1:0;
+        return p1.first<p2.first?1:0;
+    }
+};
+class Solution {
+public:
+    vector<string> topKFrequent(vector<string>& v, int k) {
+        map<string,int> m;
+        for(int i=0;i<v.size();i++)
+            m[v[i]]++;
+        priority_queue<pair<int,string>,vector<pair<int,string>>,compare> p;
+        for(auto i: m)
+            p.push(make_pair(i.second,i.first));
+        vector<string > v1;
+        for(int i=0;i<k;i++){
+            v1.push_back(p.top().second);
+            p.pop();
+        }
+        return v1;
+    }
+};

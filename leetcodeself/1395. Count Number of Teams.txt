@@ -1,0 +1,51 @@
+Brute force
+
+class Solution {
+public:
+    int numTeams(vector<int>& r) {
+        int c=0;
+        for(int i=0;i<r.size()-2;i++)
+        {
+            for(int j=i+1;j<r.size()-1;j++)
+            {
+                for(int k=j+1;k<r.size();k++)
+                {
+                    if((r[i]<r[j])&&(r[j]<r[k])){
+                        c++;}
+                    if((r[i]>r[j])&&(r[j]>r[k])){
+                        c++;}
+                }
+            }
+        }
+        return c;
+    }
+};
+
+Runtime: 4 ms, faster than 98.56% of C++ online submissions for Count Number of Teams.
+Memory Usage: 8 MB, less than 7.19% of C++ online submissions for Count Number of Teams.
+class Solution {
+public:
+    int numTeams(vector<int>& r) {
+        int c=0;
+        vector<int> v(r.size());
+        vector<int> v1(r.size());
+        for(int i=1;i<r.size();i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(r[i]>r[j]){
+                    c=c+v[j];
+                    v[i]++;
+                }
+                if(r[i]<r[j]){
+                    c=c+v1[j];
+                    v1[i]++;
+                }
+                
+            }
+            
+        }
+       
+        return c;
+    }
+};

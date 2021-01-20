@@ -1,0 +1,23 @@
+Details 
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Maximum 69 Number.
+Memory Usage: 5.9 MB, less than 65.99% of C++ online submissions for Maximum 69 Number.
+class Solution {
+public:
+    int maximum69Number (int num) {
+        int n=num,j=1,p=-1;
+        while(n>0)
+        {
+            if(n%10==6)
+            {
+                p=j;
+            }
+            j=j*10;
+            n=n/10;
+        }
+        if(p!=-1)
+        {
+            num=num+3*p;
+        }
+        return num;
+    }
+};

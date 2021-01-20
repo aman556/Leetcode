@@ -1,0 +1,30 @@
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Decrypt String from Alphabet to Integer Mapping.
+Memory Usage: 7.2 MB, less than 12.68% of C++ online submissions for Decrypt String from Alphabet to Integer Mapping.
+class Solution {
+public:
+    string freqAlphabets(string s) {
+        string s1;
+        int n=0;
+        for(int i=s.length()-1;i>=0;i--)
+        {
+            if(s[i]!='#'&&i>=0)
+            {
+                s1=char((int)s[i]+(int)'a'-(int)'0'-1)+s1;
+            }
+            else if(s[i]=='#'&&i>0)
+            {
+                i--;
+                n=(int)((int)s[i]-(int)'0');
+                i--;
+              
+                n=n+(int)((int)s[i]-(int)'0')*10;
+                
+                //cout<<n<<" ";
+                s1=char((int)'a'+n-1)+s1;
+                n=0;
+            }
+        }
+         
+        return s1;
+    }
+};

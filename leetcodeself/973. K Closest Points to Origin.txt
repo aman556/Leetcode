@@ -1,0 +1,33 @@
+struct points1
+{
+    int d,x,y;
+};
+struct compare
+{
+    bool operator()(points1 p1,points1 p2)
+    {
+        return p1.d>p2.d?1:0;
+    }
+};
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& v, int k) {
+        priority_queue<points1,vector<points1>,compare> p;
+        vector<vector<int>> v1(k);
+        for(int i=0;i<v.size();i++)
+        {
+            struct points1 c;
+            c.d=v[i][0]*v[i][0]+v[i][1]*v[i][1];
+            c.x=v[i][0];
+            c.y=v[i][1];
+            p.push(c);
+        }
+        for(int i=0;i<k;i++)
+        {
+            v1[i].push_back(p.top().x);
+            v1[i].push_back(p.top().y);
+            p.pop();
+        }
+        return v1;
+    }
+};

@@ -1,0 +1,22 @@
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Count Sorted Vowel Strings.
+Memory Usage: 5.9 MB, less than 98.51% of C++ online submissions for Count Sorted Vowel Strings
+class Solution {
+    int dp[7][51];
+public:
+    int rec(int n,int i,int j){
+        if(j==n)
+            return 1;
+        
+        if(i>5)
+            return 0;
+        
+        if(dp[i][j]!=0)
+            return dp[i][j];
+        
+        return dp[i][j]=rec(n,i,j+1)+rec(n,i+1,j);
+    }
+    int countVowelStrings(int n) {
+        memset(dp,0,sizeof(dp));
+        return rec(n,1,0);
+    }
+};

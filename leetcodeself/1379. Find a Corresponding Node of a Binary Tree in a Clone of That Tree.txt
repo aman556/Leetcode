@@ -1,0 +1,17 @@
+class Solution {
+public:
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+        if(!original)
+            return NULL;
+        if(original==target)
+            return cloned;
+         
+   TreeNode* x=getTargetCopy(original->left,cloned->left,target);
+        if(x!=NULL)
+            return x;
+        x=getTargetCopy(original->right,cloned->right,target);
+        if(x!=NULL)
+            return x;
+        return NULL;
+    }
+};

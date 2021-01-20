@@ -1,0 +1,70 @@
+
+Runtime: 64 ms, faster than 76.27% of C++ online submissions for Deepest Leaves Sum.
+Memory Usage: 38.9 MB, less than 28.27% of C++ online submissions for Deepest Leaves Sum
+class Solution {
+public:
+   
+    int deepestLeavesSum(TreeNode* root) {
+        queue<TreeNode*> q;
+        int a=0;
+        q.push(root);
+        q.push(NULL);
+        while(!q.empty())
+        {
+           TreeNode* p=q.front();
+            q.pop();
+            if(p)
+            a=a+p->val;
+            if(p==NULL&&q.size()>0)
+            {
+                q.push(NULL);
+                a=0;
+            }
+            else if(p!=NULL)
+            {
+                if(p->left!=NULL)
+                q.push(p->left);
+                if(p->right)
+                q.push(p->right);
+            }
+            
+        }
+        return a;
+    }
+};
+
+Runtime: 64 ms, faster than 76.27% of C++ online submissions for Deepest Leaves Sum.
+Memory Usage: 38.3 MB, less than 67.27% of C++ online submissions for Deepest Leaves Sum.
+
+class Solution {
+public:
+   int height(TreeNode* root)
+   {
+       if(!root)
+           return 0;
+       else
+       {
+           int l=height(root->left);
+           int r=height(root->right);
+           return l>r?l+1:r+1;
+       }
+   }
+    void level(TreeNode* root,int *p,int h)
+    {
+        if(!root)
+            return;
+        if(h==0)
+            (*p)=(*p)+root->val;
+        else
+        {
+            level(root->left,p,h-1);
+            level(root->right,p,h-1);
+        }
+    }
+    int deepestLeavesSum(TreeNode* root) {
+        int a=0;int *p;p=&a;
+        int h=height(root);
+        level(root,p,h-1);
+        return *p;
+    }
+};

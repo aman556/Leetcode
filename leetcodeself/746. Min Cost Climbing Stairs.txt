@@ -1,0 +1,44 @@
+Bottom down
+
+Runtime: 4 ms, faster than 98.58% of C++ online submissions for Min Cost Climbing Stairs.
+Memory Usage: 13.5 MB, less than 100.00% of C++ online submissions for Min Cost Climbing Stairs
+
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int i=2,n=cost.size();
+        
+        while(i<n){
+            cost[i]=cost[i]+min(cost[i-1],cost[i-2]);
+            //cout<<cost[i]<<" ";
+                i++;
+            if(i<n){
+                
+            cost[i]=cost[i]+min(cost[i-1],cost[i-2]);
+                //cout<<cost[i]<<" ";
+            i++;
+            }
+        }
+        return min(cost[n-1],cost[n-2]);
+    }
+};
+
+Top Down
+Runtime: 8 ms, faster than 83.80% of C++ online submissions for Min Cost Climbing Stairs.
+Memory Usage: 13.6 MB, less than 100.00% of C++ online submissions for Min Cost Climbing Stairs
+class Solution {
+public:
+    int dp[1000];
+    int rec(vector<int>& cost,int i,int n){
+        if(i>=n)
+            return 0;
+        if(dp[i]!=-1)
+            return dp[i];
+        return dp[i]=cost[i]+min(rec(cost,i+1,n),rec(cost,i+2,n));
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        memset(dp,-1,sizeof(dp));
+        return min(rec(cost,0,n),rec(cost,1,n));
+    }
+};

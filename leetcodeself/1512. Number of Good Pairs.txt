@@ -1,0 +1,39 @@
+*Brute force approch
+Time complexity O(n^2)
+Space Complexity O(1)
+class Solution {
+public:
+    int numIdenticalPairs(vector<int>& n) {
+        int c=0;
+        for(int i=0;i<n.size()-1;i++)
+        {
+            for(int j=i+1;j<n.size();j++)
+            {
+                if(n[i]==n[j])
+                    c++;
+            }
+        }
+        return c;
+    }
+};
+---------------------------------------------------------------------------------------
+*Using hashing 
+Time complexity O(n)
+Space Complexity O(n)
+class Solution {
+public:
+    int numIdenticalPairs(vector<int>& n) {
+        int c=0;
+        map<int,int> m;
+        for(int i=0;i<n.size();i++)
+        {
+            m[n[i]]++;
+        }
+        for(int i=0;i<n.size();i++)
+            if(m[n[i]]>1){
+            c=c+((m[n[i]]-1)*m[n[i]])/2;
+                m[n[i]]=0;
+            }
+        return c;
+    }
+};

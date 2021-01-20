@@ -1,0 +1,33 @@
+Runtime: 64 ms, faster than 96.47% of C++ online submissions for Maximum Binary Tree.
+Memory Usage: 32.9 MB, less than 71.57% of C++ online submissions for Maximum Binary Tree.
+class Solution { 
+public:
+    TreeNode* create(TreeNode* root,vector<int>& nums,int i,int n)
+    {
+        if(i>n)
+        {
+            return NULL;
+        }
+        int j=-1,m=-1;
+        for(int k=i;k<n;k++)
+            if(nums[k]>m)
+            {
+                m=nums[k];
+                j=k;
+            }
+            if(j==-1)
+                return NULL;
+        struct TreeNode* t=new TreeNode(nums[j]);
+            if(root==NULL)
+                root=t;
+            root->left=create(root->left,nums,i,j);
+            root->right=create(root->right,nums,j+1,n);
+        
+        return root;
+    }
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+        struct TreeNode* root=NULL;
+       return create(root,nums,0,nums.size());
+        
+    }
+};

@@ -1,0 +1,21 @@
+Runtime: 32 ms, faster than 52.16% of C++ online submissions for All Paths From Source to Target.
+Memory Usage: 15.4 MB, less than 31.75% of C++ online submissions for All Paths From Source to Target.
+class Solution {
+public:
+    void dfs(vector<vector<int>>& graph,vector<vector<int>>& v,vector<int> v1,vector<int>& vis,int u)
+    {
+        vis[u]=1;
+        v1.push_back(u);
+        if(u==graph.size()-1){
+            v.push_back(v1);
+        }
+        for(int i=0;i<graph[u].size();i++)
+            dfs(graph,v,v1,vis,graph[u][i]);
+    }
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<vector<int>> v;
+        vector<int> v1,vis(graph.size(),0);
+       dfs(graph,v,v1,vis,0);
+        return v;
+    }
+};

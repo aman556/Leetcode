@@ -1,0 +1,46 @@
+memo + recursive (top down)
+Runtime: 4 ms, faster than 46.54% of C++ online submissions for House Robber.
+Memory Usage: 7.9 MB, less than 96.25% of C++ online submissions for House Robber.
+class Solution {
+public:
+    int dpp(vector<int>& nums,int n,int i,int s,int dp[101]){
+        if(i>=n)
+            return 0;
+        
+        if(dp[i]!=-1)
+            return dp[i];
+        
+        int c1=dpp(nums,n,i+1,s,dp);
+        int c2=dpp(nums,n,i+2,s,dp)+nums[i];
+        
+        return dp[i]=max(c1,c2);
+    }
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        int dp[101];
+        memset(dp,-1,sizeof(dp));
+        
+        return dpp(nums,n,0,0,dp);
+    }
+};
+
+itetrative with O(1) space
+Runtime: 4 ms, faster than 46.54% of C++ online submissions for House Robber.
+Memory Usage: 7.9 MB, less than 75.93% of C++ online submissions for House Robber.
+class Solution {
+public:
+   
+    int rob(vector<int>& nums) {
+        if(nums.size()==0)
+            return 0;
+        int p1=nums[0],p2=0;
+        
+        for(int i=1;i<nums.size();i++)
+        {
+            int t=p1;
+            p1=max(p1,p2+nums[i]);
+            p2=t;
+        }
+        return p1;
+    }
+};

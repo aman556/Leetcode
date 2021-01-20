@@ -1,0 +1,43 @@
+class Solution {
+public:
+    string sortString(string s) {
+        map<char,int> m;
+        vector<char> v;string s1;
+        for(int i=0;i<s.length();i++)
+        {
+            if(m[s[i]]==0)
+                v.push_back(s[i]);
+            m[s[i]]++;
+        }
+        sort(v.begin(),v.end());
+        int i=0;
+        while(i<s.length())
+        {
+            int j=0;
+            while(j<v.size()&&i<s.length())
+            {
+                if(m[v[j]]>0){
+                s1=s1+v[j];
+                    m[v[j]]--;
+                    i++;
+                
+                }
+                j++;
+            }
+            j=v.size()-1;
+            while(j>=0&&i<s.length())
+            {
+                if(m[v[j]]>0){
+                s1=s1+v[j];
+                    m[v[j]]--;
+                i++;
+               
+                }
+                j--;
+            }
+            
+        }
+        
+    return s1;
+    }
+};

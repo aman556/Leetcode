@@ -1,0 +1,46 @@
+O(nlogn)
+class Solution {
+public:
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        priority_queue<int> p;
+        map<int,int> m;
+        for(int i=0;i<nums.size();i++)
+                p.push(nums[i]);
+        for(int i=0;i<nums.size();i++)
+        {
+            m[p.top()]=p.size()-1;
+            p.pop();
+        }
+            
+        for(int i=0;i<nums.size();i++)
+            nums[i]=m[nums[i]];
+        return nums;
+    }
+};
+
+O(n)
+class Solution {
+public:
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        int n=nums.size();
+        int a[101]={0};
+        vector<int> a1(nums.size());
+        for(int i=0;i<nums.size();i++)
+                a[nums[i]]++;
+        for(int i=1;i<101;i++)
+        {
+            a[i]+=a[i-1];
+        }
+            
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]==0)
+            {
+                a1[i]=0;
+            }
+            else
+                a1[i]=a[nums[i]-1];
+        }
+        return a1;
+    }
+};

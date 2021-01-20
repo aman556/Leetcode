@@ -1,0 +1,61 @@
+Runtime: 64 ms, faster than 69.77% of C++ online submissions for Sum of Nodes with Even-Valued Grandparent.
+Memory Usage: 38.2 MB, less than 58.69% of C++ online submissions for Sum of Nodes with Even-Valued Grandparent.
+
+class Solution {
+public:
+    void order(TreeNode* root,int *p)
+    {
+        if(!root)
+            return;
+        if(root->val%2==0)
+        {
+            TreeNode* t=root;
+            if(root->left)
+            {
+                t=t->left;
+                if(t->right)
+                    (*p)=(*p)+t->right->val;
+                if(t->left)
+                    (*p)=(*p)+t->left->val; 
+            }
+            if(root->right)
+            {
+                t=root->right;
+                if(t->right)
+                    (*p)=(*p)+t->right->val;
+                if(t->left)
+                    (*p)=(*p)+t->left->val;
+            }
+        }
+        order(root->left,p);
+        order(root->right,p);
+    }
+    int sumEvenGrandparent(TreeNode* root) {
+        int a=0;
+        int *p;
+        p=&a;
+        order(root,p);
+        return a;
+    }
+};
+
+
+Runtime: 60 ms, faster than 83.10% of C++ online submissions for Sum of Nodes with Even-Valued Grandparent.
+Memory Usage: 38.3 MB, less than 47.24% of C++ online submissions for Sum of Nodes with Even-Valued Grandparent.
+class Solution {
+public:
+    int order(TreeNode* root,int p,int gp)
+    {
+        if(!root)
+            return 0;
+        int c=0;
+        if(gp%2==0)
+            c=c+root->val;
+       c+= order(root->left,root->val,p);
+        c+=order(root->right,root->val,p);
+        return c;
+    }
+    int sumEvenGrandparent(TreeNode* root) {
+        return order(root,1,1);
+    }
+};

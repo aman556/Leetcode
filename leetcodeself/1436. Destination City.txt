@@ -1,0 +1,14 @@
+Runtime: 20 ms, faster than 96.39% of C++ online submissions for Destination City.
+Memory Usage: 10.8 MB, less than 76.58% of C++ online submissions for Destination City.
+class Solution {
+public:
+    string destCity(vector<vector<string>>& paths) {
+        set<string> s;
+        for(int i=0;i<paths.size();i++)
+            s.insert(paths[i][0]);
+        for(int i=0;i<paths.size();i++)
+            if(s.find(paths[i][1])==s.end())
+               return paths[i][1];
+        return "";
+    }
+};

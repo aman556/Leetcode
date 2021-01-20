@@ -1,0 +1,37 @@
+Runtime: 12 ms, faster than 98.91% of C++ online submissions for Populating Next Right Pointers in Each Node.
+Memory Usage: 17.8 MB, less than 15.46% of C++ online submissions for Populating Next Right Pointers in Each Node.
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        
+        if(!root)
+            return NULL;
+        
+        queue<Node*> q;
+        
+        q.push(root);
+        q.push(NULL);
+        
+        while(q.size()>1){
+            Node *p=q.front();
+            q.pop();
+            if(p==NULL)
+            {
+                q.push(NULL);
+                continue;
+            }
+            
+            p->next=q.front();
+            
+            if(p->left)
+                q.push(p->left);
+            
+            if(p->right)
+                q.push(p->right);
+            
+            
+        }
+        return root;
+    }
+};

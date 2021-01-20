@@ -1,0 +1,27 @@
+
+Runtime: 32 ms, faster than 75.94% of C++ online submissions for Burst Balloons.
+Memory Usage: 9 MB, less than 15.32% of C++ online submissions for Burst Balloons.
+class Solution {
+    int t[501][501];
+public:
+    int dp(vector<int>& a,int i,int j)
+    {
+    if(i+1==j)
+        return 0;
+   else if(t[i][j]!=-1)
+       return t[i][j];
+    int res=0;
+    for(int k=i+1;k<j;k++)
+    {
+        res=max(res,dp(a,i,k)+dp(a,k,j)+a[i]*a[k]*a[j]);
+    }
+    t[i][j]=res;
+    return t[i][j];
+    }
+    int maxCoins(vector<int>& a) {
+        a.insert(a.end(),1);
+        a.push_back(1);
+	    memset(t,-1,sizeof(t));
+	    return dp(a,0,a.size()-1);
+    }
+};

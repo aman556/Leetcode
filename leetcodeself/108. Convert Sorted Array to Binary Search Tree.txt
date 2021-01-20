@@ -1,0 +1,17 @@
+TreeNode* createTree(vector<int>  a,int l,int r){
+    if(l>=r){
+        return NULL;
+    }
+    TreeNode *root=new TreeNode(a[(l+r)/2]);
+    root->left=createTree(a,l,(l+r)/2);
+    root->right=createTree(a,(l+r)/2+1,r);
+    return root;
+}
+
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        TreeNode *root=createTree(nums,0,nums.size());
+        return root;
+    }
+};

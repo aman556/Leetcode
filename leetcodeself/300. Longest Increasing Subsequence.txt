@@ -1,0 +1,27 @@
+Runtime: 76 ms, faster than 52.70% of C++ online submissions for Longest Increasing Subsequence.
+Memory Usage: 8.1 MB, less than 10.69% of C++ online submissions for Longest Increasing Subsequence.
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& a) {
+       int n=a.size();
+        if(n==0)
+            return 0;
+        if(n==1)
+            return 1;
+        vector<int> h(n,0);int m=0;
+	   
+	        h[0]=1;
+	        for(int i=1;i<n;i++)
+	        {h[i]=1;
+	            for(int j=0;j<i;j++)
+	            {
+	                if(a[j]<a[i]&&h[i]<h[j]+1)
+	                    h[i]=h[j]+1;
+	            }
+	           // cout<<h[i]<<" ";
+	            if(h[i]>m)
+	            m=h[i];
+	        }
+	        return m;
+    }
+};

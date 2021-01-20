@@ -1,0 +1,58 @@
+My solution
+class Solution {
+public:
+    vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
+        
+       int k=0;
+      map<int,int> h;
+        for(int i=0;i<groupSizes.size();i++)
+        {
+            h[groupSizes[i]]++;
+        }
+   
+       vector<vector<int>> v;
+         for(int i=0;i<h.size();i++)
+        {
+             if(h[i]!=0){
+                 int j=0;
+                 while(j<h[i]/i){
+            vector<int> v1(i,-1);
+            v.push_back(v1);j++;
+                 }
+             }
+        }
+        for(int i=0;i<groupSizes.size();i++)
+        {
+            for(int j=0;j<v.size();j++)
+            {
+                if(v[j].size()==groupSizes[i]&&v[j].front()==-1)
+                {
+                    v[j].push_back(i);
+                   v[j].erase(v[j].begin());
+                    
+                    break;
+                }
+            }
+        }
+        return v;
+    }
+};
+efficient
+class Solution {
+public:
+    vector<vector<int>> groupThePeople(vector<int>& w) {
+        unordered_map<int, vector<int>> mp;
+        int n=w.size();
+        vector<vector<int>> v;
+        for(int i=0;i<n;i++){
+            mp[w[i]].push_back(i);
+            if(mp[w[i]].size()==w[i])
+            {
+                v.push_back(mp[w[i]]);
+                mp[w[i]].clear();
+            }
+        }
+        
+        return v;        
+    }
+};

@@ -1,0 +1,28 @@
+const int nmax = 5e4+7;
+class Solution {
+public:
+    bool canJump(vector<int>& a) {
+        if(a.size()==1)
+            return 1;
+        if(a[0]==0)
+            return 0;
+        int h[nmax]={0};
+	    h[0]=0;
+	    for(int i=1;i<a.size();i++)
+	    {
+           h[i]=INT_MAX;
+	        for(int j=0;j<i;j++)
+	        {
+	            if(h[j]!=INT_MAX&&a[j]>=(i-j)){
+	            h[i]=min(h[i],h[j]+1);
+                    break;
+                }
+	        }
+            
+	    }
+	    if(h[a.size()-1]!=INT_MAX)
+	    return 1;
+        else
+            return 0;
+    }
+};
