@@ -1,0 +1,44 @@
+Runtime: 8 ms, faster than 36.95% of C++ online submissions for Search in Rotated Sorted Array.
+Memory Usage: 11.1 MB, less than 68.32% of C++ online submissions for Search in Rotated Sorted Array.
+class Solution {
+public:
+    int pvt(vector<int>& nums,int i,int j){
+        if(i>j)
+            return -1;
+        int m=(i+j)/2;
+        
+        if(m>0&&nums[m]<nums[m-1])
+            return m;
+        if(m<nums.size()-1&&nums[m]>nums[m+1])  
+            return m+1;
+        //cout<<m<<" ";
+        if(nums[m]>nums[0]){//cout<<m<<" ";
+            return pvt(nums,m+1,j);
+                     }
+        else if(nums[m]<nums[nums.size()-1])
+            return pvt(nums,i,m-1);
+        return -1;
+    }
+    int bin(vector<int> &nums,int target,int i,int j){
+        if(i>j)
+            return -1;
+        int m=(i+j)/2;
+        if(target==nums[m])
+            return m;
+        if(target>nums[m])
+            return bin(nums,target,m+1,j);
+        else
+            return bin(nums,target,i,m-1);
+        return -1;
+    }
+    int search(vector<int>& nums, int target) {
+        int pvt1=0,in=-1;
+        if(nums[0]>nums[nums.size()-1])
+         pvt1=pvt(nums,0,nums.size()-1);
+        if(target<=nums[nums.size()-1])
+            in=bin(nums,target,pvt1,nums.size()-1);
+        else
+            in=bin(nums,target,0,pvt1-1);
+        return in;
+    }
+};

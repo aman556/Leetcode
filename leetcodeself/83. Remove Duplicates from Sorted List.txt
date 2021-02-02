@@ -1,0 +1,64 @@
+Runtime: 8 ms, faster than 95.96% of C++ online submissions for Remove Duplicates from Sorted List.
+Memory Usage: 11.6 MB, less than 80.73% of C++ online submissions for Remove Duplicates from Sorted List.
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head)
+            return NULL;
+        ListNode* h1=head,*h2=head->next;
+        
+        while(h2){
+            if(h1->val==h2->val){
+                h1->next=h2->next;
+                h2=h1->next;
+            }
+            else{
+                h1=h1->next;
+                h2=h2->next;
+            }
+        }
+        return head;
+    }
+};
+
+recursive approch
+Runtime: 4 ms, faster than 99.80% of C++ online submissions for Remove Duplicates from Sorted List.
+Memory Usage: 11.6 MB, less than 80.73% of C++ online submissions for Remove Duplicates from Sorted List.
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void del(ListNode* h1,ListNode* h2){
+        if(!h2||!h1)
+            return;
+        
+        if(h1->val==h2->val){
+            h1->next=h2->next;
+            del(h1,h2->next);
+        }
+        else
+            del(h1->next,h2->next);
+        return;
+    }
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head)
+            return NULL;
+        if(!head->next)
+            return head;
+        
+        del(head,head->next);
+       
+        
+        
+        return head;
+    }
+};

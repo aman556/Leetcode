@@ -1,0 +1,64 @@
+Runtime: 16 ms, faster than 37.77% of C++ online submissions for Diameter of Binary Tree.
+Memory Usage: 20.3 MB, less than 87.74% of C++ online submissions for Diameter of Binary Tree.
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root)
+            return 0;
+        return 1+max(maxDepth(root->left),maxDepth(root->right));
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(!root)
+            return 0;
+        
+        int l1=0,r1=0;
+        
+        if(root->left)
+        l1=diameterOfBinaryTree(root->left);
+        
+        int l=0,r=0;
+        if(root->left)
+            l=maxDepth(root->left);
+        if(root->right)
+            r=maxDepth(root->right);
+        
+         if(root->right)
+        r1=diameterOfBinaryTree(root->right);
+        
+        return max(l1,max(l+r,r1));
+    }
+};
+
+Runtime: 4 ms, faster than 97.71% of C++ online submissions for Diameter of Binary Tree.
+Memory Usage: 20.2 MB, less than 96.90% of C++ online submissions for Diameter of Binary Tree.
+class Solution {
+    int d=0;
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root)
+            return 0;
+        int l=maxDepth(root->left);
+        
+            int r=maxDepth(root->right);
+        d=max(d,l+r);
+        return 1+max(l,r);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(!root)
+            return 0;
+       maxDepth(root); 
+        
+        return d;
+    }
+};

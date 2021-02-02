@@ -1,0 +1,35 @@
+Runtime: 24 ms, faster than 66.21% of C++ online submissions for Set Matrix Zeroes.
+Memory Usage: 13.2 MB, less than 93.32% of C++ online submissions for Set Matrix Zeroes
+class Solution {
+public:
+    void makezero(vector<vector<int>>& matrix,int i,int j){
+        int k=0;
+        while(k<matrix.size()){
+            matrix[k][j]=0;
+            k++;
+        }
+        
+        k=0;
+        while(k<matrix[0].size()){
+            matrix[i][k]=0;
+            k++;
+        }
+    }
+    void dfs(vector<vector<int>>& matrix,int i,int j){
+       
+        for(int i1=i;i1<matrix.size();i1++)
+            for(int j1=0;j1<matrix[0].size();j1++)
+            {
+                if(matrix[i1][j1]==0)
+                {
+                    matrix[i1][j1]=-1;
+                    dfs(matrix,i1);
+                    makezero(matrix,i1,j1);
+                    return;
+                }
+            }
+    }
+    void setZeroes(vector<vector<int>>& matrix) {
+        dfs(matrix,0);
+    }
+};

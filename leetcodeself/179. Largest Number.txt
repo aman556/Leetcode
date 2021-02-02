@@ -1,0 +1,27 @@
+Runtime: 12 ms, faster than 56.94% of C++ online submissions for Largest Number.
+Memory Usage: 12.9 MB, less than 6.47% of C++ online submissions for Largest Number.class Solution {
+public:
+   bool static check(string a,string b){
+       return a+b>b+a;
+   }
+    string largestNumber(vector<int>& nums) {
+        vector<string> s;
+        
+        for(int i=0;i<nums.size();i++)
+            s.push_back(to_string(nums[i]));
+        
+        string s1;
+        int f=0;
+        
+        sort(s.begin(),s.end(),check);
+        
+        for(int i=0;i<nums.size();i++){
+            s1=s1+s[i];
+            if(s[i]!="0")
+                f++;
+        }
+        if(f!=0)
+        return s1;
+        return "0";
+    }
+};
