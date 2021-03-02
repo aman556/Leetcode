@@ -1,0 +1,31 @@
+Runtime: 12 ms, faster than 69.36% of C++ online submissions for Single Number III.
+Memory Usage: 9.9 MB, less than 86.38% of C++ online submissions for Single Number III.
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        
+        int x=0,p=1,a=0,b=0;
+        
+        vector<int> v;
+        for(int i=0;i<nums.size();i++){
+            x=x^nums[i];
+        }
+        
+        while(x>0&&x%2==0){
+            p=p*2;
+            x=x/2;
+        }
+    
+        for(int i=0;i<nums.size();i++){
+            int t=abs(nums[i])/p;
+           // cout<<t<<" ";
+            if(t%2==1)
+                a=a^nums[i];
+            else
+                b=b^nums[i];
+        }
+        v.push_back(a);
+        v.push_back(b);
+        return v;
+    }
+};

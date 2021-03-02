@@ -1,0 +1,45 @@
+Runtime: 364 ms, faster than 8.46% of C++ online submissions for LRU Cache.
+Memory Usage: 46.1 MB, less than 5.57% of C++ online submissions for LRU Cache.
+class LRUCache {
+    int cap;
+    list<pair<int,int>> lis;
+    map<int,int> m;
+public:
+    LRUCache(int capacity) {
+        for(int i=0;i<=3000;i++)
+            m[i]=-1;
+        cap=capacity;
+    }
+    
+    int get(int key) {
+        if(m[key]!=-1){
+        lis.remove({key,m[key]});
+        lis.push_front({key,m[key]});
+        }
+        
+        return m[key];
+    }
+    
+    void put(int key, int value) {
+        if(m[key]!=-1){
+            lis.remove({key,m[key]});
+            
+        }
+        m[key]=value;
+        if(lis.size()==cap){
+            //cout<<lis.end()->first<<" ";
+            m[lis.back().first]=-1;
+            lis.pop_back();
+            //cout<<lis.end()->first<<" ";
+        }
+        lis.push_front({key,value});
+        //cout<<lis.end()->first<<" ";
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */

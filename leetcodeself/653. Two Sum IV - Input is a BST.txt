@@ -1,0 +1,25 @@
+Runtime: 44 ms, faster than 71.81% of C++ online submissions for Two Sum IV - Input is a BST.
+Memory Usage: 41.9 MB, less than 9.40% of C++ online submissions for Two Sum IV - Input is a BST.
+class Solution {
+    int f=0;
+    map<int,int> m;
+public:
+    void  find(TreeNode* root, int k){
+        if(!root||f!=0)
+            return;
+        find(root->left,k);
+        if(m[k-root->val]){
+            f=1;
+            return;
+        }
+           m[root->val]=1;
+         
+         find(root->right,k);
+    }
+    bool findTarget(TreeNode* root, int k) {
+        if(!root)
+            return 0;
+        find(root,k);
+        return f;
+    }
+};

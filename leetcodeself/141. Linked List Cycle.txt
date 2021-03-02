@@ -1,0 +1,25 @@
+Runtime: 12 ms, faster than 44.02% of C++ online submissions for Linked List Cycle.
+Memory Usage: 7.8 MB, less than 44.00% of C++ online submissions for Linked List Cycle.
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(!head||!head->next)
+            return 0;
+        ListNode *h1=head,*h2=head;
+        h1=h1->next;
+        h2=h2->next;
+            if(h2)
+                h2=h2->next;
+        while(h1!=h2){
+           
+            h1=h1->next;
+            if(h2)
+            h2=h2->next;
+            if(h2)
+                h2=h2->next;
+             if(!h1||!h2)
+                return 0;
+        }
+        return 1;
+    }
+};

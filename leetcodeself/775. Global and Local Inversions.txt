@@ -1,0 +1,53 @@
+Runtime: 92 ms, faster than 44.50% of C++ online submissions for Global and Local Inversions.
+Memory Usage: 35.7 MB, less than 72.71% of C++ online submissions for Global and Local Inversions.
+class Solution {
+    int loc,glo;
+public:
+    void merge(vector<int>& a,int i,int j,int m){
+        int n1=m-i+1,m1=j-m,k=i,i1=0,j1=0;
+        int a1[n1],a2[m1];
+        while(i1<n1){
+            a1[i1]=a[i1+i];
+            i1++;
+        }
+        while(j1<m1){
+            a2[j1]=a[j1+m+1];
+            j1++;
+        }
+        i1=0;j1=0;
+        while(i1<n1&&j1<m1){
+            if(a1[i1]<=a2[j1]){
+                a[k++]=a1[i1++];
+            }
+            else{
+                a[k++]=a2[j1++];
+                glo=glo+n1-i1;
+            }
+        }
+        while(i1<n1){
+            a[k++]=a1[i1++];
+            //glo++;
+        }
+        while(j1<m1){
+            //glo--;
+            a[k++]=a2[j1++];
+        }
+        
+    }
+    void mergesort(vector<int>& a,int i,int j){
+        if(i>=j)
+            return;
+        int m=i+(j-i)/2;
+        mergesort(a,i,m);
+        mergesort(a,m+1,j);
+        merge(a,i,j,m);
+    }
+    bool isIdealPermutation(vector<int>& A) {
+        for(int i=0;i<A.size()-1;i++)
+            if(A[i]>A[i+1])
+                loc++;
+        mergesort(A,0,A.size()-1);
+        //cout<<glo<<" "<<loc;
+        return glo==loc;
+    }
+};

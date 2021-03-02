@@ -1,0 +1,44 @@
+Runtime: 100 ms, faster than 90.62% of C++ online submissions for Find Median from Data Stream.
+Memory Usage: 46.8 MB, less than 61.39% of C++ online submissions for Find Median from Data Stream.
+class MedianFinder {
+    priority_queue<int> p1;
+    priority_queue<int,vector<int>,greater<int>> p2;
+    
+public:
+    /** initialize your data structure here. */
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        if(p1.size()==p2.size()){
+         if(p1.empty())
+             p1.push(num);
+         else if(!p2.empty()&&num<=p2.top())
+            p1.push(num);
+         else{
+             p1.push(p2.top());
+             p2.pop();
+             p2.push(num);
+         }
+        }
+        else{
+            if(p1.size()>p2.size()){
+                if(p1.top()>=num){
+                    p2.push(p1.top());
+                    p1.pop();
+                    p1.push(num);
+                }else{
+                    p2.push(num);
+                }
+            }
+        }
+    }
+    
+    double findMedian() {
+        if((p1.size()+p2.size())%2==0)
+        return (p1.top()+p2.top())/((double)2);
+        else
+            return p1.top();
+    }
+};

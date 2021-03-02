@@ -1,0 +1,18 @@
+Runtime: 16 ms, faster than 41.59% of C++ online submissions for Path Sum.
+Memory Usage: 21.2 MB, less than 89.51% of C++ online submissions for Path Sum.
+class Solution {
+    int f=0;
+public:
+    int summ(TreeNode* root,int s, int targetSum){
+        if(!root||f!=0)
+            return 0;
+        if(!root->left&&!root->right&&root->val+s==targetSum){
+            f=1;
+            return 1;
+        }
+        return summ(root->left,s+root->val,targetSum)||summ(root->right,s+root->val,targetSum);
+    }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        return summ(root,0,targetSum);
+    }
+};

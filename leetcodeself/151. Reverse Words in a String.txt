@@ -1,0 +1,53 @@
+Runtime: 20 ms, faster than 10.69% of C++ online submissions for Reverse Words in a String.
+Memory Usage: 86 MB, less than 5.17% of C++ online submissions for Reverse Words in a String.
+class Solution {
+public:
+    string reverseWords(string s) {
+        stack<string> st;
+        string s1;
+        for(int i=0;i<s.length();i++){
+            s1="";
+            if(s[i]!=' '){
+                while(i<s.length()&&s[i]!=' '){
+                    s1=s1+s[i];
+                    i++;
+                }
+                st.push(s1);
+            }
+        }
+        s1="";
+        while(!st.empty()){
+            s1=s1+st.top();
+            st.pop();
+            if(st.size()>0)
+                s1=s1+" ";
+        }
+        return s1;
+    }
+};
+
+
+Runtime: 4 ms, faster than 90.47% of C++ online submissions for Reverse Words in a String.
+Memory Usage: 20.7 MB, less than 21.63% of C++ online submissions for Reverse Words in a String.
+class Solution {
+public:
+    string reverseWords(string s) {
+        
+        string s1,s2;
+        for(int i=0;i<s.length();i++){
+            s1="";
+            if(s[i]!=' '){
+                while(i<s.length()&&s[i]!=' '){
+                    s1=s1+s[i];
+                    i++;
+                }
+                if(s2=="")
+                    s2=s1;
+                else
+                    s2=s1+" "+s2;
+            }
+        }
+        
+        return s2;
+    }
+};

@@ -1,0 +1,16 @@
+Runtime: 4 ms, faster than 48.94% of C++ online submissions for Same Tree.
+Memory Usage: 10.1 MB, less than 52.87% of C++ online submissions for Same Tree.
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(!p&&!q)
+            return 1;
+        if((!p&&q)||(p&&!q)||(p->val!=q->val))
+            return 0;
+        
+        if(!isSameTree(p->left,q->left)||!isSameTree(p->right,q->right))
+            return 0;
+       
+        return 1;
+    }
+};

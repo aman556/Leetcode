@@ -1,0 +1,21 @@
+Runtime: 4 ms, faster than 59.31% of C++ online submissions for Swap Nodes in Pairs.
+Memory Usage: 7.5 MB, less than 95.48% of C++ online submissions for Swap Nodes in Pairs.
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head)
+            return NULL;
+        ListNode* h2,*h3;
+        if(head->next){
+            h2=head->next;
+            h3=head->next->next;
+            head->next->next=head;
+        head->next=swapPairs(h3);
+            
+        }
+        else
+            return head;
+        
+        return h2;
+    }
+};

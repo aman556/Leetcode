@@ -1,0 +1,27 @@
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Binary Tree Paths.
+Memory Usage: 14.1 MB, less than 12.81% of C++ online submissions for Binary Tree Paths.
+class Solution {
+public:
+    void preorder(TreeNode* root,vector<string> &v,string s){
+        if(!root){
+            
+            return;
+        }
+        
+        if(s!="")
+            s=s+"->";
+            s=s+to_string(root->val);
+        if(!root->left&&!root->right){
+            v.push_back(s);
+            return;
+        }
+        preorder(root->left,v,s);
+        preorder(root->right,v,s);
+        
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> v;
+        preorder(root,v,"");
+        return v;
+    }
+};

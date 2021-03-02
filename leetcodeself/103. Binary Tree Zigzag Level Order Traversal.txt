@@ -1,0 +1,93 @@
+Runtime: 4 ms, faster than 69.40% of C++ online submissions for Binary Tree Zigzag Level Order Traversal.
+Memory Usage: 12.1 MB, less than 67.93% of C++ online submissions for Binary Tree Zigzag Level Order Traversal.
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> v;
+        if(!root)
+            return v;
+        queue<TreeNode*> q;
+        int lev=0;
+        TreeNode* p;
+        q.push(root);
+        q.push(NULL);
+        v.push_back({});
+        while(q.size()>1){
+             p=q.front();
+            q.pop();
+            if(p==NULL){
+                lev++;
+                q.push(NULL);
+                v.push_back({});
+                continue;
+            }
+            v[lev].push_back(p->val);
+            if(p->left)
+            q.push(p->left);
+            if(p->right)
+            q.push(p->right);
+        }
+        for(int k=0;k<=lev;k++){//cout<<"1";
+            if(k%2!=0){
+                
+                int i=0,j=v[k].size()-1;
+                while(i<j){
+                    int t=v[k][i];
+                    v[k][i]=v[k][j];
+                    v[k][j]=t;
+                    i++;
+                    j--;
+                }
+            }
+        }
+        return v;
+    }
+};
+witout reversing 
+Runtime: 4 ms, faster than 69.40% of C++ online submissions for Binary Tree Zigzag Level Order Traversal.
+Memory Usage: 12.1 MB, less than 84.57% of C++ online submissions for Binary Tree Zigzag Level Order Traversal.
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> v;
+        if(!root)
+            return v;
+        queue<TreeNode*> q;
+        int lev=0,siz1=1,siz=0;
+        TreeNode* p;
+        q.push(root);
+        q.push(NULL);
+        v.push_back({});
+        while(q.size()>1){
+             p=q.front();
+            q.pop();
+            if(p==NULL){
+                lev++;
+                q.push(NULL);
+                if(lev%2==0)
+                v.push_back({});
+                else{
+                    vector<int> v1(siz);
+                    v.push_back(v1);
+                }
+                siz1=siz;
+                siz=0;
+                continue;
+            }
+            if(lev%2==0)
+            v[lev].push_back(p->val);
+            else{
+                v[lev][siz1-1]=p->val;
+                siz1--;
+            }
+            if(p->left){siz++;
+            q.push(p->left);
+            }
+            if(p->right){siz++;
+            q.push(p->right);
+            }
+        }
+       
+        return v;
+    }
+};

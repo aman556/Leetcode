@@ -1,0 +1,27 @@
+Runtime: 4 ms, faster than 66.99% of C++ online submissions for Merge Sorted Array.
+Memory Usage: 9.1 MB, less than 70.22% of C++ online submissions for Merge Sorted Array.
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        for(int i=m;i<m+n;i++){
+            nums1[i]=nums2[i-m];
+            //cout<<nums2[i-n]<<" ";
+        }
+        sort(nums1.begin(),nums1.end());
+    }
+};
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Merge Sorted Array.
+Memory Usage: 9.1 MB, less than 86.41% of C++ online submissions for Merge Sorted Array.
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i=m-1,j=n-1,la=m+n-1;
+        while(j>=0){
+            if(i>=0&&nums1[i]>nums2[j])
+                nums1[la]=nums1[i--];
+            else
+                nums1[la]=nums2[j--];
+            la--;
+        }
+    }
+};

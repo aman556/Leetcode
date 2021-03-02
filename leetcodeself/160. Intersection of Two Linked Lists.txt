@@ -1,0 +1,35 @@
+Runtime: 44 ms, faster than 62.01% of C++ online submissions for Intersection of Two Linked Lists.
+Memory Usage: 14.4 MB, less than 88.62% of C++ online submissions for Intersection of Two Linked Lists.
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int l1=0,l2=0;
+        ListNode *tempA=headA,*tempB=headB;
+        while(tempA){
+            l1++;
+            tempA=tempA->next;
+        }
+        
+        while(tempB){
+            l2++;
+            tempB=tempB->next;
+        }
+        if(l1>l2){
+            while(l1!=l2){
+                l1--;
+                headA=headA->next;
+            }
+        }
+        else{
+            while(l2!=l1){
+                l2--;
+                headB=headB->next;
+            }
+        }
+        while(headA!=headB){
+            headA=headA->next;
+            headB=headB->next;
+        }
+        return headB;
+    }
+};

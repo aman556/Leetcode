@@ -1,0 +1,58 @@
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Longest Common Prefix.
+Memory Usage: 9.4 MB, less than 55.78% of C++ online submissions for Longest Common Prefix.
+class Solution {
+public:
+   
+    string longestCommonPrefix(vector<string>& strs) {
+        if(strs.size()==0)
+            return "";
+        if(strs.size()==1)
+            return strs[0];
+        sort(strs.begin(),strs.end());
+        string s3="",s1=strs[0],s2=strs[strs.size()-1];
+        for(int i=0;i<min(s1.size(),s2.size());i++){
+            if(s1[i]==s2[i])
+                s3=s3+s1[i];
+            else
+                break;
+        }
+        
+        return s3;
+    }
+};
+
+
+
+Runtime: 20 ms, faster than 6.49% of C++ online submissions for Longest Common Prefix.
+Memory Usage: 22.9 MB, less than 5.80% of C++ online submissions for Longest Common Prefix.
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if(strs.size()==0)
+            return "";
+        if(strs.size()==1)
+            return strs[0];
+        string s3="",s1=strs[0],s2=strs[1];
+        for(int i=0;i<min(s1.size(),s2.size());i++){
+            if(s1[i]==s2[i])
+                s3=s3+s1[i];
+            else
+                break;
+        }
+        //cout<<s3<<" ";
+        for(int i=2;i<strs.size();i++){
+            string t;
+            for(int j=0;j<s3.size();j++){
+                if(s3[j]==strs[i][j])
+                t=t+s3[j];
+            else{
+                s3=t;
+                break;
+            }
+            }
+            s3=t;
+            //cout<<t<<" ";
+        }
+        return s3;
+    }
+};

@@ -1,0 +1,29 @@
+Runtime: 12 ms, faster than 97.34% of C++ online submissions for Number of Islands.
+Memory Usage: 9.9 MB, less than 41.19% of C++ online submissions for Number of Islands.
+class Solution {
+    int c=0,vis[301][301];
+public:
+    void dfs(vector<vector<char>>& grid,int x,int y)
+    {
+        if(x<0||x>=grid.size()||y<0||y>=grid[x].size()||vis[x][y]==1||grid[x][y]=='0')
+            return;
+        vis[x][y]=1;
+        dfs(grid,x-1,y);
+        dfs(grid,x+1,y);
+        dfs(grid,x,y-1);
+        dfs(grid,x,y+1);
+        
+        
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[i].size();j++)
+            if(vis[i][j]==0&&grid[i][j]=='1')
+            {
+                dfs(grid,i,j);
+                c++;
+            }
+        }
+        return c;
+    }
+};

@@ -1,0 +1,72 @@
+counting sort
+Runtime: 20 ms, faster than 34.42% of C++ online submissions for Find the Duplicate Number.
+Memory Usage: 25.5 MB, less than 5.12% of C++ online submissions for Find the Duplicate Number.
+class Solution {
+
+public:
+    int findDuplicate(vector<int>& nums) {
+        //int n=nums.size();
+        
+        vector<int> a(30001),out(30001);
+        for(int i=0;i<nums.size();i++)
+            a[nums[i]]++;
+        
+        for(int i=1;i<nums.size();i++)
+             a[i]=a[i]+a[i-1];
+        
+         for(int i=0;i<nums.size();i++){
+             out[a[nums[i]]-1]=nums[i];
+             a[nums[i]]--;
+         }
+        for(int i=1;i<nums.size();i++)
+            if(out[i]==out[i-1])
+                return out[i];
+        return 0;
+    }
+};
+
+Using map
+Runtime: 28 ms, faster than 14.03% of C++ online submissions for Find the Duplicate Number.
+class Solution {
+
+public:
+    int findDuplicate(vector<int>& nums) {
+        //int n=nums.size();
+        
+        map<int,int> m;
+        for(int i=0;i<nums.size();i++){
+            m[nums[i]]++;
+            if(m[nums[i]]==2)
+                return nums[i];
+        }
+            
+      
+        return 0;
+    }
+};
+
+cycle in linked list approch
+Runtime: 8 ms, faster than 91.07% of C++ online submissions for Find the Duplicate Number.
+Memory Usage: 11.1 MB, less than 76.31% of C++ online submissions for Find the Duplicate Number.
+class Solution {
+
+public:
+    int findDuplicate(vector<int>& nums) {
+        //int n=nums.size();
+        
+        int l=nums[0],s=nums[nums[0]];
+        while(l!=s){
+            l=nums[l];
+            s=nums[nums[s]];
+        }
+        s=0;
+        while(s!=l){
+            l=nums[l];
+            s=nums[s];
+        }
+            return l;
+      
+        return 0;
+    }
+};
+Memory Usage: 12.8 MB, less than 16.97% of C++ online submissions for Find the Duplicate Number.
