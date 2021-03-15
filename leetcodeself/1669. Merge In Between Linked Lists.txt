@@ -1,0 +1,22 @@
+Runtime: 304 ms, faster than 63.26% of C++ online submissions for Merge In Between Linked Lists.
+Memory Usage: 94.3 MB, less than 88.82% of C++ online submissions for Merge In Between Linked Lists.
+class Solution {
+public:
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+        a=a-1;
+        b=b-a+1;
+        ListNode* h1=list1,*h2;
+        while(a--)
+            h1=h1->next;
+        h2=h1;
+        
+        
+        while(b--)
+            h2=h2->next;
+        h1->next=list2;
+        while(h1->next)
+            h1=h1->next;
+        h1->next=h2;
+        return list1;
+    }
+};

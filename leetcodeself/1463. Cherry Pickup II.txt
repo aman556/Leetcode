@@ -1,0 +1,29 @@
+Runtime: 68 ms, faster than 65.77% of C++ online submissions for Cherry Pickup II.
+Memory Usage: 12.8 MB, less than 53.46% of C++ online submissions for Cherry Pickup II.
+class Solution {
+    int mov[3]={-1,0,1};
+    int dp[101][101][101];
+public:
+    int maxdp(vector<vector<int>>& grid,int i,int j,int j1){
+        if(i>=grid.size()||j<0||j>=grid[0].size()||j1<0||j1>=grid[0].size())
+            return 0;
+        if(dp[i][j][j1]!=-1)
+            return dp[i][j][j1];
+        int c=0,c1,c2=0;
+        for(int k=0;k<3;k++){
+            c1=grid[i][j];
+            int p=grid[i][j];
+            grid[i][j]=0;
+            for(int k1=0;k1<3;k1++){
+                c2=max(c2,maxdp(grid,i+1,j+mov[k],mov[k1]+j1)+grid[i][j1]);
+            }
+            grid[i][j]=p;
+            c=max(c,c1+c2);
+        }
+        return dp[i][j][j1]=c;
+    }
+    int cherryPickup(vector<vector<int>>& grid) {
+        memset(dp,-1,sizeof(dp));
+        return maxdp(grid,0,0,grid[0].size()-1);
+    }
+};

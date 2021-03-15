@@ -1,0 +1,73 @@
+Runtime: 4 ms, faster than 82.91% of C++ online submissions for Find and Replace Pattern.
+Memory Usage: 8.7 MB, less than 27.92% of C++ online submissions for Find and Replace Pattern.
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        
+        vector<string> v;
+        for(int i=0;i<words.size();i++){
+            int f=0;
+            map<char,int> m1,m2;
+            map<char,char> b;
+            if(words[i].size()==pattern.size()){
+            
+            for(int j=0;j<words[i].size()-1&&f==0;j++){
+                if(m2[pattern[j]]!=0&&b[pattern[j]]!=words[i][j])
+                    f=1;
+                m1[words[i][j]]++;
+                m2[pattern[j]]++;
+                
+                if((pattern[j]==pattern[j+1]&&words[i][j]!=words[i][j+1])||
+                                    (pattern[j]!=pattern[j+1]&&words[i][j]==words[i][j+1])||m1[words[i][j]]!=m2[pattern[j]])
+                    f=1;
+                b[pattern[j]]=words[i][j];
+            }
+                if(m2[pattern[words[i].size()-1]]!=0&&b[pattern[words[i].size()-1]]!=words[i][words[i].size()-1])
+                    f=1;
+                m1[words[i][words[i].size()-1]]++;
+                m2[pattern[words[i].size()-1]]++;
+                if(m1[words[i][words[i].size()-1]]!=m2[pattern[words[i].size()-1]])
+                    f=1;
+            }
+            else
+                f=1;
+            
+            if(f==0)
+                v.push_back(words[i]);
+        }
+        return v;
+    }
+};
+Runtime: 4 ms, faster than 82.91% of C++ online submissions for Find and Replace Pattern.
+Memory Usage: 8.4 MB, less than 62.39% of C++ online submissions for Find and Replace Pattern.
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        
+        vector<string> v;
+        for(int i=0;i<words.size();i++){
+            int f=0;
+            map<char,int> m1,m2;
+           
+            if(words[i].size()==pattern.size()){
+            
+            for(int j=0;j<words[i].size()&&f==0;j++){
+              
+                
+                
+                if(m1[words[i][j]]!=m2[pattern[j]])
+                  f=1;
+                    m1[words[i][j]]=j+1;
+                m2[pattern[j]]=j+1;
+            }
+               
+            }
+            else
+                f=1;
+            
+            if(f==0)
+                v.push_back(words[i]);
+        }
+        return v;
+    }
+};

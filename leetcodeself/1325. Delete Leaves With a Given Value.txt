@@ -1,0 +1,26 @@
+Runtime: 16 ms, faster than 79.51% of C++ online submissions for Delete Leaves With a Given Value.
+Memory Usage: 21.7 MB, less than 75.66% of C++ online submissions for Delete Leaves With a Given Value.
+class Solution {
+public:
+    void rem(TreeNode* root,TreeNode* par,int x){
+        if(!root)
+            return;
+        rem(root->left,root,x);
+        rem(root->right,root,x);
+        
+        if(!root->left&&!root->right&&root->val==x)
+        {
+            if(par&&par->right==root)
+                par->right=NULL;
+            else if(par)
+                par->left=NULL;
+        }
+        
+    }
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+        rem(root,NULL,target);
+        if(root->val==target&&!root->left&&!root->right)
+            return NULL;
+        return root;
+    }
+};

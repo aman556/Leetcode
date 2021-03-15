@@ -1,0 +1,25 @@
+Runtime: 96 ms, faster than 97.14% of C++ online submissions for Balance a Binary Search Tree.
+Memory Usage: 47.1 MB, less than 83.30% of C++ online submissions for Balance a Binary Search Tree.
+class Solution {
+    vector<TreeNode*> v;
+public:
+    void inorder(TreeNode* root){
+        if(!root)
+                return;
+        inorder(root->left);
+        v.push_back(root);
+        inorder(root->right);
+    }
+    TreeNode* binary(int l,int r){
+        if(l>r)
+            return NULL;
+        int m=(l+r)/2;
+        v[m]->left=binary(l,m-1);
+        v[m]->right=binary(m+1,r);
+        return v[m];
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        inorder(root);
+        return binary(0,v.size()-1);
+    }
+};

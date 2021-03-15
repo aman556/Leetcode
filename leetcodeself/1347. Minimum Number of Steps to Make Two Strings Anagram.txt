@@ -1,0 +1,29 @@
+Runtime: 300 ms, faster than 6.64% of C++ online submissions for Minimum Number of Steps to Make Two Strings Anagram.
+Memory Usage: 16.8 MB, less than 43.93% of C++ online submissions for Minimum Number of Steps to Make Two Strings Anagram.
+class Solution {
+public:
+    int minSteps(string s, string t) {
+        map<char,int> m1,m2;
+        int a=0;
+        for(int i=0;i<s.length();i++){
+            m1[s[i]]++;
+            m2[t[i]]++;
+        }
+        for(int i=0;i<s.length();i++){
+            if(m1[s[i]]>=m2[s[i]]){
+                m1[s[i]]-=m2[s[i]];
+                m2[s[i]]=0;
+            }
+            else{
+                m2[s[i]]-=m1[s[i]];
+                m1[s[i]]=0;
+            }
+            
+        }
+        for(int i=0;i<s.length();i++){
+            a+=m1[s[i]];
+            m1[s[i]]=0;
+        }
+        return a;
+    }
+};

@@ -1,0 +1,100 @@
+Runtime: 208 ms, faster than 10.77% of C++ online submissions for Serialize and Deserialize Binary Tree.
+Memory Usage: 692.3 MB, less than 7.25% of C++ online submissions for Serialize and Deserialize Binary Tree.
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    
+    int height(TreeNode* root){
+        if(!root)
+            return 0;
+        int l=height(root->left);
+        int r=height(root->right);
+        return 1+max(l,r);
+    }
+    string serialize(TreeNode* root) {
+        if(!root)
+            return "";
+        int h=height(root);
+        queue<TreeNode*> q;
+        q.push(root);
+        q.push(NULL);
+        string s;
+        s=to_string(root->val);
+        while(q.size()>1){
+            TreeNode* p=q.front();
+            q.pop();
+            if(p==NULL){
+                q.push(NULL);
+                //s=s+",1001";
+                h--;
+                continue;
+            }
+           
+            if(p->left){
+                 s=s+","+to_string(p->left->val);
+                q.push(p->left);
+            }
+            else if(h>1)
+                s=s+",#";
+            if(p->right){
+                s=s+","+to_string(p->right->val);
+                q.push(p->right);
+            }
+            else if(h>1)
+                s=s+",#";
+        }
+        //cout<<s<<" ";
+        return s;
+    }
+
+    // Decodes your encoded data to tree.
+   
+    TreeNode* deserialize(string data) {
+        if(data=="")
+            return NULL;
+     
+        queue<TreeNode*> q;
+        vector<string> nodes = split(data, ',');
+        auto it = nodes.begin();
+        TreeNode *root=new TreeNode(stoi(*(it++)));
+        q.push(root);
+        while(!q.empty() && it != nodes.end()){
+            TreeNode* p=q.front();
+            q.pop();
+            
+            if(*it != "#"){
+                TreeNode *t=new TreeNode(stoi(*(it++)));
+                p->left=t;
+                 q.push(t);
+            }
+            else
+            {
+                it++;
+            }
+            
+            if(*it != "#"){
+                 TreeNode *t=new TreeNode(stoi(*(it++)));
+                p->right=t;
+                 q.push(t);
+            }
+            else
+            {
+                it++;
+            }
+        }
+        
+        return root;
+    }
+    vector<string> split(string str, char delimiter) {
+        vector<string> result;
+        int last = 0;
+        for (int i = 0; i <= str.length(); i++) {
+            if (str[i] == delimiter || str[i] == '\0') {
+                result.push_back(str.substr(last, i - last));
+                last = i + 1;
+            }
+        }
+        return result;
+    }
+};

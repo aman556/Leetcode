@@ -1,0 +1,37 @@
+Runtime: 72 ms, faster than 98.02% of C++ online submissions for Sum of Distances in Tree.
+Memory Usage: 31.2 MB, less than 85.15% of C++ online submissions for Sum of Distances in Tree.
+class Solution {
+    
+public:
+    void dfs(vector<vector<int>>& v,int root,int pre,vector<int> &ans,vector<int> &count){
+        count[root]=1;
+        for(int i=0;i<v[root].size();i++){
+            if(v[root][i]==pre)
+                continue;
+            dfs(v,v[root][i],root,ans,count);
+            count[root]+=count[v[root][i]];
+            ans[root]=ans[root]+count[v[root][i]]+ans[v[root][i]];
+        }
+    }
+    void dfs1(vector<vector<int>>& v,int root,int pre,vector<int> &ans,vector<int> &count){
+       if(pre!=-1)
+           ans[root]=ans[root]+(count.size()-count[root])+(ans[pre]-(ans[root]+count[root]));
+        for(int i=0;i<v[root].size();i++){
+            if(v[root][i]==pre)
+                continue;
+            dfs1(v,v[root][i],root,ans,count);
+        }
+    }
+    vector<int> sumOfDistancesInTree(int N, vector<vector<int>>& edges) {
+        vector<vector<int>> v(N);
+        vector<int> ans(N,0),count(N);
+        for(int i=0;i<N-1;i++)
+        {
+            v[edges[i][0]].push_back(edges[i][1]);
+            v[edges[i][1]].push_back(edges[i][0]);
+        }
+        dfs(v,0,-1,ans,count);
+        dfs1(v,0,-1,ans,count);
+        return ans;
+    }
+};

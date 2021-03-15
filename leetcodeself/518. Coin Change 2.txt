@@ -1,0 +1,22 @@
+Runtime: 72 ms, faster than 12.55% of C++ online submissions for Coin Change 2.
+Memory Usage: 18.2 MB, less than 33.51% of C++ online submissions for Coin Change 2.
+class Solution {
+    int dp[501][5001];
+public:
+    int dpchange(vector<int>& coins,int i,int x,int n){
+        if(x==0)
+            return 1;
+        
+        if(i>=n||x<0)
+            return 0;
+        
+        if(dp[i][x]!=-1)
+            return dp[i][x];
+        
+        return dp[i][x]=(dpchange(coins,i,x-coins[i],n)+dpchange(coins,i+1,x,n));
+    }
+    int change(int amount, vector<int>& coins) {
+        memset(dp,-1,sizeof(dp));
+        return dpchange(coins,0,amount,coins.size());
+    }
+};

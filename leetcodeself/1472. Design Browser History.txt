@@ -1,0 +1,38 @@
+class BrowserHistory {
+    vector<string> v;
+    unordered_map<string,int> m;
+    string curr;
+public:
+    BrowserHistory(string homepage) {
+        curr=homepage;
+        m[homepage]=v.size();
+            v.push_back(homepage);
+    }
+    
+    void visit(string url) {
+        
+        
+            
+       
+            vector<string> v2;
+            for(int i=0;i<=m[curr];i++)
+                v2.push_back(v[i]);
+            v=v2;
+        m[url]=v.size();
+            v.push_back(url);
+        curr=url;
+    }
+    
+    string back(int steps) {
+        curr=v[max(m[curr]-steps,0)];
+        
+        return curr;
+    }
+    
+    string forward(int steps) {
+        int j=v.size();
+        
+        curr=v[min(m[curr]+steps,j-1)];
+        return curr;
+    }
+};

@@ -1,0 +1,51 @@
+Runtime: 516 ms, faster than 5.38% of C++ online submissions for Path In Zigzag Labelled Binary Tree.
+Memory Usage: 126.4 MB, less than 5.38% of C++ online submissions for Path In Zigzag Labelled Binary Tree.
+class Solution {
+public:
+    vector<int> pathInZigZagTree(int label) {
+        int l=0,k=2,x,b=0;
+        queue<int> q;
+        vector<int> v;
+        int par[10000001]{0};
+        par[1]=-1;
+        q.push(1);
+        q.push(0);
+        
+        while(!q.empty()&&k<=2*label&&label<1000001){
+            int p=q.front();
+            q.pop();
+            if(p==0){
+                if(q.size()>1)
+                q.push(0);
+                l++;
+                b=0;
+                continue;
+            }
+            if(l%2==0)
+                x=(2<<l)-1;
+            else{
+                x=0;   
+            }
+            //cout<<k+x-2*b<<" ";
+            par[k+x-2*b]=p;
+            q.push(k+x-2*b);
+            k++;
+            if(l%2==0)
+                b++;
+            //cout<<k+x-2*b<<" ";
+            par[k+x-2*b]=p;
+            q.push(k+x-2*b);
+            k++;
+            if(l%2==0)
+                b++;
+        }
+        //cout<<par[label];
+        while(label!=-1)
+        {
+            v.push_back(label);
+            label=par[label];
+        }
+        reverse(v.begin(),v.end());
+        return v;
+    }
+};

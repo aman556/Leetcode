@@ -1,0 +1,19 @@
+Runtime: 24 ms, faster than 17.39% of C++ online submissions for Reducing Dishes.
+Memory Usage: 9.3 MB, less than 15.34% of C++ online submissions for Reducing Dishes.
+class Solution {
+public:
+    int dp[501][501];
+    int maxdp(vector<int>& v,int i,int j){
+        if(i>=v.size())
+            return 0;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        return dp[i][j]=max(v[i]*j+maxdp(v,i+1,j+1),maxdp(v,i+1,j));
+    }
+    int maxSatisfaction(vector<int>& v) {
+        sort(v.begin(),v.end());
+        memset(dp,-1,sizeof(dp));
+        return maxdp(v,0,1);
+        
+    }
+};

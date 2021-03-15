@@ -1,0 +1,30 @@
+Runtime: 32 ms, faster than 75.42% of C++ online submissions for Sort Integers by The Power Value.
+Memory Usage: 10.6 MB, less than 52.14% of C++ online submissions for Sort Integers by The Power Value.
+class Solution {
+    int h[400001];
+public:
+    int step(int x){
+        if(x==1)
+            return 1;
+        if(h[x]!=-1)
+            return h[x];
+        return h[x]=1+(x%2==0?step(x/2):step(3*x+1));
+    }
+    int getKth(int lo, int hi, int k) {
+        memset(h,-1,sizeof(h));
+        vector<pair<int,int>> v;
+        int p;
+        for(int i=lo;i<=hi;i++)
+        {
+            if(h[i]!=-1)
+                v.push_back({h[i],i});
+            else{
+                p=step(i);
+                v.push_back({p,i});
+                h[i]=p;
+            }
+        }
+        sort(v.begin(),v.end());
+        return v[k-1].second;
+    }
+};

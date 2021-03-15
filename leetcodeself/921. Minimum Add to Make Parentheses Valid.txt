@@ -1,0 +1,40 @@
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Minimum Add to Make Parentheses Valid.
+Memory Usage: 6.3 MB, less than 45.47% of C++ online submissions for Minimum Add to Make Parentheses Valid.
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        stack<char> st;
+        int a=0;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='(')
+                st.push('(');
+            else{
+                if(!st.empty())
+                st.pop();
+                else
+                    a++;
+            }
+        }
+        return st.size()+a;
+    }
+};
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Minimum Add to Make Parentheses Valid.
+Memory Usage: 6.1 MB, less than 97.02% of C++ online submissions for Minimum Add to Make Parentheses Valid.
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        int l=0;
+        int a=0;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='(')
+                l++;
+            else{
+                if(l>0)
+                l--;
+                else
+                    a++;
+            }
+        }
+        return l+a;
+    }
+};

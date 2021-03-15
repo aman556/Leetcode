@@ -1,0 +1,29 @@
+Runtime: 24 ms, faster than 99.43% of C++ online submissions for Design a Stack With Increment Operation.
+Memory Usage: 21.1 MB, less than 45.44% of C++ online submissions for Design a Stack With Increment Operation.
+class CustomStack {
+    int a[1001],i=-1,cap;
+public:
+    CustomStack(int maxSize) {
+        cap=maxSize;
+        //a=new int[maxSize];
+    }
+    
+    void push(int x) {
+        if(i==cap-1)
+            return;
+        i++;
+        a[i]=x;
+    }
+    
+    int pop() {
+        if(i==-1)
+            return -1;
+        i--;
+        return a[i+1];
+    }
+    
+    void increment(int k, int val) {
+        for(int j=0;j<min(i+1,k);j++)
+            a[j]+=val;
+    }
+};

@@ -1,0 +1,35 @@
+Runtime: 8 ms, faster than 67.95% of C++ online submissions for Trapping Rain Water.
+Memory Usage: 14.3 MB, less than 60.47% of C++ online submissions for Trapping Rain Water.
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        if(height.size()==0)
+            return 0;
+        int lef[height.size()],reg[height.size()],ans[height.size()];
+        memset(lef,0,sizeof(lef));
+        memset(reg,0,sizeof(reg));
+        memset(ans,0,sizeof(ans));
+        
+        lef[0]=height[0];
+
+        for(int i=1;i<height.size();i++){
+            lef[i]=max(height[i],lef[i-1]);
+           
+        }
+       
+        reg[height.size()-1]=height[height.size()-1];
+        for(int i=height.size()-2;i>=0;i--){
+            reg[i]=max(height[i],reg[i+1]);
+        }
+        int p,p1=0;
+        for(int i=1;i<height.size()-1;i++){
+            p=min(lef[i-1],reg[i+1]);
+            if(p>height[i]){
+                ans[i]=p-height[i];
+            }
+            p1=p1+ans[i];
+        }
+       
+        return p1;
+    }
+};

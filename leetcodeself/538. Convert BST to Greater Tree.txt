@@ -1,0 +1,15 @@
+Runtime: 32 ms, faster than 83.62% of C++ online submissions for Convert BST to Greater Tree.
+Memory Usage: 33.3 MB, less than 84.29% of C++ online submissions for Convert BST to Greater Tree.
+class Solution {
+    int s=0;
+public:
+    TreeNode* convertBST(TreeNode* root) {
+        if(!root)
+            return NULL;
+        convertBST(root->right);
+        s=s+root->val;
+        root->val=s;
+        convertBST(root->left);
+        return root;
+    }
+};

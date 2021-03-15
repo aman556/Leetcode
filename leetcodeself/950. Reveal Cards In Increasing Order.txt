@@ -1,0 +1,27 @@
+Runtime: 28 ms, faster than 6.18% of C++ online submissions for Reveal Cards In Increasing Order.
+Memory Usage: 8.2 MB, less than 96.66% of C++ online submissions for Reveal Cards In Increasing Order.
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        sort(deck.begin(),deck.end());
+        int k=0,f=0;
+        vector<int> v(deck.size());
+        
+        for(int i=1;i<=deck.size();i++){
+            for(int j=0;j<deck.size();j=j+p){
+                if(v[j]==0){
+                    
+                if(f==0){
+                    v[j]=deck[k];
+                    k++;
+                }
+                f=1-f;
+                }
+            }
+        }
+        return v;
+    }
+};
+
+
+//dequeue approch use
